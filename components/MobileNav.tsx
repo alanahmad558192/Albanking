@@ -40,8 +40,8 @@ const MobileNav = ({ user }: MobileNavProps) => {
               height={34}
               alt="Horizon logo"
             />
-            <h1 className="text-26 font-bold font-ibm-plex-serif text-black-1">
-              Horizon
+            <h1 className="text-16 font-bold font-ibm-plex-serif text-black-1">
+              Book Keeping
             </h1>
           </Link>
           <div className="mobilenav-sheet">
