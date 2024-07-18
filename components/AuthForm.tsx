@@ -6,7 +6,7 @@ import React, { useState } from "react";
 
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, Controller, FormProvider } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -34,6 +34,13 @@ const AuthForm = ({ type }: { type: string }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
+      address: "",
+      city: "",
+      state: "",
+      postalCode: "",
+      dob: "",
       email: "",
       password: "",
     },
@@ -44,6 +51,7 @@ const AuthForm = ({ type }: { type: string }) => {
     setIsLoading(true);
 
     try {
+      console.log(data); //Log form data to the console
       // Sign up with Appwrite & create plaid token
 
       if (type === "sign-up") {
@@ -56,7 +64,6 @@ const AuthForm = ({ type }: { type: string }) => {
         //   email: data.email,
         //   passport: data.password,
         // })
-
         // if(response) router.push('/')
       }
     } catch (error) {
@@ -98,26 +105,6 @@ const AuthForm = ({ type }: { type: string }) => {
         <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-              {/* <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <div className="form-item">
-                    <FormLabel className="form-label">Email</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your email"
-                          className="input-class"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="form-message mt-2" />
-                    </div>
-                  </div>
-                )}
-              /> */}
-
               {type === "sign-up" && (
                 <>
                   <div className="flex gap-4">
@@ -182,27 +169,6 @@ const AuthForm = ({ type }: { type: string }) => {
                 label="Password"
                 placeholder="Enter your password"
               />
-
-              {/* <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <div className="form-item">
-                    <FormLabel className="form-label">Password</FormLabel>
-                    <div className="flex w-full flex-col">
-                      <FormControl>
-                        <Input
-                          placeholder="Enter your password"
-                          className="input-class"
-                          type="password"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage className="form-message mt-2" />
-                    </div>
-                  </div>
-                )}
-              /> */}
 
               <div className="flex flex-col gap-4">
                 <Button type="submit" disabled={isLoading} className="form-btn">
